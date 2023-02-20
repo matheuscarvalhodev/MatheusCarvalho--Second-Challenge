@@ -1,0 +1,42 @@
+.formNewUser{
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+}
+.formNewUser input {
+    border-radius: 50px;
+    height: 27px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: 1px solid white;
+    background-color: #26292C;
+    color: white;
+    box-sizing: border-box;
+    width: 280px;
+  }
+  
+  .formNewUser input::placeholder {
+    font-size: 12px;
+  }
+
+.formNewUser label{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.formNewUser-button{
+
+    background: rgb(255,45,4);
+    background: linear-gradient(3deg, rgba(255,45,4,1) 0%, rgba(193,50,22,1) 35%);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    width: 380px;
+  
+}

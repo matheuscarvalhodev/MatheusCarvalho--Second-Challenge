@@ -1,0 +1,16 @@
+.datetime{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.datetime h2{
+    color: #3B3E45;
+    font-size: 30pt;
+}
+
+.datetime p{
+    color: #3B3E45;
+    font-size: 14pt;
+}
