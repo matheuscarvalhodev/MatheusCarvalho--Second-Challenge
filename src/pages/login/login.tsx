@@ -9,13 +9,16 @@ const LoginScreen: React.FC = () => {
 
   return (
     <div className="login-screen">
-      <div className="login-form">
-        <h2>Login</h2>
+      <div className="login-formUser">
+        <div className="container-text">
+          <div className="text">
+            <h2>Welcome,</h2>
+            <p>To continue browsing safely, log in to the network.</p>
+          </div>
+        </div>
         <Login onLogin={handleLogin} />
       </div>
-      <div className="login-image">
-        <img src="https://via.placeholder.com/400x400" alt="Imagem de login" />
-      </div>
+      <div className="login-image"></div>
     </div>
   );
 };

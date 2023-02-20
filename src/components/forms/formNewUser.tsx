@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../styles/formNewUser.css';
 
 interface SignupFormData {
   firstName: string;
@@ -37,7 +38,7 @@ const SignupForm = (): JSX.Element => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='formNewUser' onSubmit={handleSubmit}>
       <label>
         First name:
         <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} />
@@ -74,11 +75,11 @@ const SignupForm = (): JSX.Element => {
       </label>
       <br />
       <label>
-        Confirm password:
+        Password:
         <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleInputChange} />
       </label>
       <br />
-      <button type="submit">Submit</button>
+      <button type="submit" className='formNewUser-button'>Register Now</button>
     </form>
   );
 };
