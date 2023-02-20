@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import WeatherIcon from '../icons/weatherIcons';
+import "../styles/weather.css"
 
-interface WeatherData {
+interface WeatherFullData {
   name: string;
   main: {
     temp: number;
@@ -10,10 +12,14 @@ interface WeatherData {
     main: string;
     description: string;
   }[];
+  sys: {
+    country: string;
+    name: string;
+  };
 }
 
 const WeatherDisplay = (): JSX.Element => {
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [weatherData, setWeatherData] = useState<WeatherFullData | null>(null);
 
   useEffect(() => {
     const getWeatherData = async () => {
@@ -22,7 +28,7 @@ const WeatherDisplay = (): JSX.Element => {
         const { latitude, longitude } = position.coords;
         const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
-        const response = await axios.get<WeatherData>(url);
+        const response = await axios.get<WeatherFullData>(url);
         setWeatherData(response.data);
       } catch (error) {
         console.error(error);
@@ -42,13 +48,17 @@ const WeatherDisplay = (): JSX.Element => {
     return <div>Loading...</div>;
   }
 
-  const { name, main, weather } = weatherData;
+  const { name, main, weather, sys } = weatherData;
   const { temp } = main;
   const { main: weatherMain, description: weatherDescription } = weather[0];
 
   return (
     <div>
-      <p>{temp}°C</p>
+      <p className='title-location'>{name} - Brazil</p>
+      <div className='weather'>
+        <WeatherIcon size={50} weatherName={weatherMain} />
+        <p>{temp.toPrecision(2)}°</p>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,9 @@
+.weather{
+    display: flex;
+}
+.weather p{
+    font-size: 35px;
+}
+.title-location{
+    font-size: 14px;
+}

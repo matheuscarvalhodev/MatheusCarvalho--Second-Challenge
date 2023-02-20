@@ -1,0 +1,62 @@
+.container-form-addCard{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.input-form{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    margin-left: 10px;
+}
+.input-form input, select{
+    border: 1px solid #FECE00;
+}
+.form-button{
+    display: flex;
+    flex-direction: row;
+    margin-right: 20px;
+    gap: 20px;
+}
+.container-form{
+    padding: 20px 0;
+}
+
+.add{
+    background-color: #00BA88;
+    width: 170px;
+    height: 40px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 15px;
+    color: white;
+}
+.delete{
+    background-color: #FF3D1F;
+    width: 170px;
+    height: 40px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 15px;
+    color: white;
+}
+.task-or-inssue{
+    width: 300px;
+    height: 30px;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.select-day{
+    width: 150px;
+    height: 40px;
+    border-radius: 15px;
+    padding: 5px;
+}
+.time-input{
+    width: 100px;
+    height: 30px;
+    border-radius: 15px;
+    padding: 5px;
+}
