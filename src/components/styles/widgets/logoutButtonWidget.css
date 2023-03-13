@@ -18,4 +18,14 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo-logout{
+    width: 150px;
+}
+.seta-logout{
+    width: 21px;
 }

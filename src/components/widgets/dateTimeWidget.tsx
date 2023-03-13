@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../styles/dateTime.css"
+import "../styles/widgets/dateTimeWidget.css"
 
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 

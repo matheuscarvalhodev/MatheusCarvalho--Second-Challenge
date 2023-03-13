@@ -1,0 +1,25 @@
+.modal-content {
+    background-color: #26292C;
+    background-image: url("../../../../public/images/logo.png");
+    background-repeat: no-repeat;
+    background-size: 90px;
+    background-position: right bottom;
+    color: white;
+    padding: 20px;
+    width: 400px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    border: 3px #E9B425 solid;
+
+}
+
+.modal-content p{
+  font-size: 14px;
+}
+  

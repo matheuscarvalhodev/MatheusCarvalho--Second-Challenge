@@ -7,11 +7,15 @@
 .input-form{
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 10px;
     margin-left: 10px;
 }
 .input-form input, select{
     border: 1px solid #FECE00;
+}
+.error{
+    border: 1px solid red !important;
+    background-color: rgba(255,0,0,0.30);
 }
 .form-button{
     display: flex;
@@ -20,43 +24,45 @@
     gap: 20px;
 }
 .container-form{
-    padding: 20px 0;
+    padding: 12px 0;
 }
 
 .add{
     background-color: #00BA88;
     width: 170px;
-    height: 40px;
+    height: 35px;
     margin-right: 10px;
     border: none;
     border-radius: 15px;
     color: white;
+    cursor: pointer;
 }
 .delete{
     background-color: #FF3D1F;
     width: 170px;
-    height: 40px;
+    height: 35px;
     margin-right: 10px;
     border: none;
     border-radius: 15px;
     color: white;
+    cursor: pointer;
 }
 .task-or-inssue{
     width: 300px;
-    height: 30px;
+    height: 25px;
     border-radius: 15px;
     padding: 5px;
 }
 
 .select-day{
     width: 150px;
-    height: 40px;
+    height: 35px;
     border-radius: 15px;
     padding: 5px;
 }
 .time-input{
     width: 100px;
-    height: 30px;
+    height: 25px;
     border-radius: 15px;
     padding: 5px;
 }
