@@ -20,11 +20,25 @@
     font-size: 12px;
   }
 
+  .formNewUser input:blank {
+    outline: 2px solid #E9B425;
+  }
+
 .formNewUser label{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     font-size: 14px;
+}
+
+input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
 }
 
 .formNewUser-button{
@@ -39,4 +53,11 @@
     cursor: pointer;
     width: 380px;
   
+}
+
+.link{
+  margin-top: 5px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #E9B425;
 }

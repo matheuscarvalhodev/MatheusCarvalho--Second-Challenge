@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import WeatherIcon from '../icons/weatherIcons';
-import "../styles/weather.css"
+import "../styles/widgets/weatherInfoWidget.css"
+
+interface weatherProps{
+  user:string
+}
 
 interface WeatherFullData {
   name: string;
@@ -18,16 +22,17 @@ interface WeatherFullData {
   };
 }
 
-const WeatherDisplay = (): JSX.Element => {
+const WeatherDisplay: React.FC<weatherProps> = ({user}) => {
   const [weatherData, setWeatherData] = useState<WeatherFullData | null>(null);
+
+  const userData = localStorage.getItem(`user ${user}`);
+  const city = userData ? JSON.parse(userData) : null;
 
   useEffect(() => {
     const getWeatherData = async () => {
       try {
-        const position = await getCurrentPosition();
-        const { latitude, longitude } = position.coords;
         const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.city}&units=metric&appid=${apiKey}`;
         const response = await axios.get<WeatherFullData>(url);
         setWeatherData(response.data);
       } catch (error) {
@@ -38,11 +43,6 @@ const WeatherDisplay = (): JSX.Element => {
     getWeatherData();
   }, []);
 
-  const getCurrentPosition = (): Promise<GeolocationPosition> => {
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject);
-    });
-  };
 
   if (!weatherData) {
     return <div>Loading...</div>;
