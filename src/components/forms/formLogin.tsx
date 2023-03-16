@@ -1,7 +1,9 @@
+import { stringify } from "querystring";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useValidateUser } from "../../util/useValidateUser";
+import { loginUser } from "../../api/postLogin";
 import Modal from "../modals/modal";
+import ModalLoading from "../modals/modalLoading";
 import "../styles/forms/formLogin.css";
 
 
@@ -11,8 +13,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState<string[]>([]);
-
-  const isValidUser = useValidateUser(username, password);
+  const [showLoadingModal, setShowLoadingModal] = useState(false);
 
   document.body.addEventListener("click", () => {
     if (showModal) {
@@ -31,20 +32,30 @@ const Login: React.FC = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (isValidUser) {
-      navigate("/dashboard", { state: { id: username } });
-    } else {
-      setModalMessage(["Invalid username or password"]);
+    setShowLoadingModal(true);
+    try {
+      const newUser = await loginUser(username, password);
+      if (newUser.status === 200) {
+        navigate('/dashboard', { state: { id: newUser.data.user.email } });
+        localStorage.setItem('token', newUser.data.token);
+        localStorage.setItem(`user ${newUser.data.user.email}`, JSON.stringify(newUser.data.user))
+      }else if(newUser.status === 403){
+        setModalMessage(['Invalid username or password']);
+        setShowModal(true);
+      }
+      else {
+        setModalMessage([`${newUser.data}`]);
+        setShowModal(true);
+      }
+    } catch (error:any) {
+      setModalMessage([`${error.message}`]);
       setShowModal(true);
+    } finally {
+      setShowLoadingModal(false);
     }
   };
-
-  const onClose = () => {
-    setShowModal(false);
-  }
-
   return (
     <div className="container-formLogin">
       <form onSubmit={handleSubmit} className="login-form">
@@ -86,6 +97,9 @@ const Login: React.FC = () => {
           showModal={showModal}
           message={modalMessage}
         />
+        {showLoadingModal && (
+        <ModalLoading/>
+      )}
     </div>
   );
 };

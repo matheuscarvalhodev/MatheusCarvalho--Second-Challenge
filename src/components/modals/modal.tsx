@@ -9,7 +9,7 @@ interface ModalProps {
   message: string[];
 }
 
-const ModalBox = styled(motion.div)`
+export const ModalBox = styled(motion.div)`
   position: relative;
   z-index: 2;
   width: 400px;
@@ -31,7 +31,7 @@ export const ModalContainer = styled.div`
   justify-content: center;
 `;
 
-const ModalContent = styled(motion.div)`
+export const ModalContent = styled(motion.div)`
   padding: 5px;
   color: black;
 `;

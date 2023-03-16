@@ -1,11 +1,11 @@
-export type Task = {
+export interface Task {
   id: string;
   task: string;
   dayOfWeek: string;
   time: string;
 }
 
-export type SignupFormData = {
+export interface SignupFormData {
   firstName: string;
   lastName: string;
   birthDate: string;
@@ -14,6 +14,12 @@ export type SignupFormData = {
   email: string;
   password: string;
   confirmPassword: string;
+}
+
+export interface LoginFormData{
+    user:string;
+    password:string;
+
 }
 
 export const errorMessages: { [key: string]: string } = {

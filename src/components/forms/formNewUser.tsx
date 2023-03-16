@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react';
 import { errorMessages, SignupFormData } from '../../util/utils';
 import { containsNumbers, emailValidation, isStrongPassword, isTextOnly, isValidDate } from '../../util/inputValidator';
 import '../styles/forms/formNewUser.css';
-import Modal from '../modals/modal';
+import Modal, { ModalContainer, ModalBox, ModalContent } from '../modals/modal';
 import { Link, useNavigate } from 'react-router-dom';
+import { createUser } from '../../api/postAddUser';
+import { AnimatePresence } from 'framer-motion';
+import ModalLoading from '../modals/modalLoading';
 
 
 const SignupForm = (): JSX.Element => {
@@ -32,6 +35,7 @@ const SignupForm = (): JSX.Element => {
   });
 
   const [showModal, setShowModal] = useState(false);
+  const [showLoadingModal, setShowLoadingModal] = useState(false);
 
   document.body.addEventListener("click", () => {
     if (showModal) {
@@ -50,7 +54,7 @@ const SignupForm = (): JSX.Element => {
   };
 
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     const hasError = Object.values(errors).some((error) => error);
     const isFormEmpty = Object.values(formData).every((value) => value === '');
@@ -62,12 +66,25 @@ const SignupForm = (): JSX.Element => {
 
       setMensagem(errorFields.map((field) => errorMessages[field]))
     } else {
-      setMensagem(['Cadastro realizado com sucesso']);
+      setShowLoadingModal(true);
+    try {
+      const newUser = await createUser(formData);
+      if (newUser.status === 201) {
+        setMensagem(['Registration successful']);
+        setShowModal(true);
+        setTimeout(() => {
+          navigate('/login');
+        }, 5000);
+      } else {
+        setMensagem([`${newUser.data}`]);
+        setShowModal(true);
+      }
+    } catch (error:any) {
+      setMensagem([`${error.message}`]);
       setShowModal(true);
-      localStorage.setItem(`user ${formData.email}`, JSON.stringify(formData))
-      setTimeout(() => {
-        navigate('/login');
-      }, 5000);
+    } finally {
+      setShowLoadingModal(false);
+    }
       
     }
   };
@@ -96,7 +113,6 @@ const SignupForm = (): JSX.Element => {
         break;
       case 'password':
         if (!isStrongPassword(value) || value.trim() === '') {
-          console.log(isStrongPassword(value))
           hasError = true;
         }
         break;
@@ -168,7 +184,10 @@ const SignupForm = (): JSX.Element => {
         <button type="submit" className='formNewUser-button'>Register Now</button>
       </form>
       <Modal showModal={showModal} message={menssagem}/>
-      <Link to="/login" className='link'>Already have a registration? Login</Link>
+      {showLoadingModal && (
+        <ModalLoading/>
+      )}
+      <Link to="/login" className='link'>Already have a registration? Sign in</Link>
     </div>
   );
 };

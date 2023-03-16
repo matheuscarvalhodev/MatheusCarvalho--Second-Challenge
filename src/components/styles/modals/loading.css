@@ -1,17 +1,24 @@
-.weather{
+  
+.modal-content-loading {
+    background-color: #26292C;
+    font-size: 24px;
+    color: white;
+    padding: 20px;
+    width: 200px;
+    min-height: 100px;
     display: flex;
-}
-.weather p{
-    font-size: 35px;
-}
-.title-location{
-    font-size: 14px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    border: 3px #E9B425 solid;
 }
 
-
-.circleSvg-weather {
-    width: 50px;
-    height: 50px;
+.circleSvg {
+    width: 90px;
+    height: 90px;
     animation: spin 1s linear infinite;
   }
   
@@ -21,7 +28,7 @@
     }
   }
   
-  .circle-weather {
+  .circle {
     fill: none;
     stroke: #E9B425;
     stroke-width: 3px;
