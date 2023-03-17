@@ -10,6 +10,7 @@ const LogoutButton: React.FC<LogoutProps> = ({ user }) => {
     const navigation = useNavigate();
     const logout = () => {
         localStorage.removeItem(`user ${user}`)
+        localStorage.removeItem('token')
         navigation('/login')
     }
 

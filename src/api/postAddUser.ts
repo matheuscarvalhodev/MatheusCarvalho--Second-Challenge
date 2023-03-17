@@ -8,7 +8,6 @@ export const createUser = async (userInput: SignupFormData): Promise<any> => {
   
     try {
       const response = await axios.post(url, userInput);
-      console.log(response.status,response.data)
       return({'status': response.status, 'data':response.data})
     } catch (error: any) {
       return({'status': error.response.status, 'data':error.response.data});

@@ -25,7 +25,6 @@ interface WeatherFullData {
 const WeatherDisplay: React.FC<weatherProps> = ({ user }) => {
   const [weatherData, setWeatherData] = useState<WeatherFullData | null>(null);
   const [showLoadingModal, setShowLoadingModal] = useState(false);
-
   const userData = localStorage.getItem(`user ${user}`);
   const city = userData ? JSON.parse(userData) : null;
 
