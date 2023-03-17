@@ -5,13 +5,13 @@ import CardTask from './cardsWidget';
 import { Task } from '../../util/utils';
 import { Tasks } from '../../api/getTasks';
 import Modal from '../modals/modal';
+import { DeleteTask } from '../../api/deleteTask';
+import ModalConfirm from '../modals/confirmModal';
 
 
 const daysOfWeek = [{ name: 'Monday', color: '#FF0024' }, { name: 'Tuesday', color: '#FF8000' }, { name: 'Wednesday', color: '#FFCE00' }, { name: 'Thursday', color: '#FF4D66' }, { name: 'Friday', color: '#FFA74D' }, { name: 'Saturday', color: '#FFDD4D' }, { name: 'Sunday', color: '#FF7F91' },];
 
 export function WeekDashboard() {
-
-    const [tasks, setTasks] = useState<Task[]>([]);
     const [selectedDay, setSelectedDay] = useState('Monday');
     const [selectedDayColor, setSelectedDayColor] = useState('#FF0024');
     const [showLoadingModal, setShowLoadingModal] = useState(false);
@@ -19,17 +19,15 @@ export function WeekDashboard() {
     const [erroMessage, setErroMessage] = useState<string>('');
     const [verify, setVerify] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [atualizar, setAtualizar] = useState(false)
+    const [atualizar, setAtualizar] = useState(false);
+    const [confirm, setConfirm] = useState(false);
+    const [idTask, setIdTask] = useState('');
 
     document.body.addEventListener("click", () => {
         if (showModal) {
             setShowModal(false);
         }
-      });
-
-    // const deletarCard = useCallback((id: string) => {
-    //     setTasks(tasks.filter(task => task.id !== id));
-    // }, [tasks]);
+    });
 
     const aoAtualizar = () => {
         setAtualizar(true)
@@ -37,15 +35,11 @@ export function WeekDashboard() {
 
     useEffect(() => {
         setShowLoadingModal(true);
-
         const api = async () => {
             try {
                 const result = await Tasks(selectedDay);
                 if (result.status == 200) {
                     const filteredTasks = result.data.filter((task: Task) => task.dayOfWeek === selectedDay);
-                    console.log(result.data)
-                    setTasks(filteredTasks);
-
                     const tasksByTime = filteredTasks.reduce((acc: { [key: string]: Task[] }, task: Task) => {
                         const tasksAtTime = acc[task.time] || [];
                         return { ...acc, [task.time]: [...tasksAtTime, task] };
@@ -68,22 +62,49 @@ export function WeekDashboard() {
         }
 
         api();
-        if(atualizar){
+        if (atualizar) {
             api();
             setAtualizar(false);
         }
-    }, [selectedDay,atualizar]);
+    }, [selectedDay, atualizar]);
 
+    const confirmDelete = (flag:boolean) => {
+        if(flag){
+          deleteTask();
+          setConfirm(false);
+          setIdTask('');
+        }else{
+          setConfirm(false);
+          setIdTask('');
+        }
+      }
+    
+      async function deleteTask(){
+        try{
+          const deleteTask = await DeleteTask(idTask);
+          if(deleteTask.status == 204){
+            aoAtualizar();
+          }else {
+            setErroMessage(`${deleteTask.data}`);
+            setShowModal(true);
+          }
+        }catch (error: any) {
+            setErroMessage(`${error.message}`);
+          setShowModal(true);
+        }
+      }
+    
+      const flag = (id:string) => {
+        setIdTask(id)
+        setConfirm(true)
+      }
 
     const sortedTasksByTime = Object.entries(tasksByTime).sort(([time1], [time2]) => time1.localeCompare(time2));
 
-    const deleteAllTasks = () => {
-        setTasks(tasks.filter(task => task.dayOfWeek !== selectedDay));
-    };
-
     return (
         <div className='container'>
-            <Form aoAtualizar={aoAtualizar} deleteAllTasks={deleteAllTasks} />
+            <ModalConfirm showConfirm={confirm} message={'Delete this task?'} onConfirm={confirmDelete} />
+            <Form aoAtualizar={aoAtualizar} selectedDay={selectedDay} taskList={sortedTasksByTime}/>
             <div className='container-tabs'>
                 <div className="container-dash">
                     <div style={{ display: 'flex', justifyContent: 'space-around', borderBottom: '1px solid #ccc', gap: "3px", marginLeft: "110px", marginRight: "15px", minWidth: "1100px", width: "100%" }}>
@@ -148,7 +169,7 @@ export function WeekDashboard() {
                                         {sameTime && <div className='time-divider' style={{ height: '5px', minWidth: `${325 * tasksAtTime.length}px` }}></div>}
                                         {sameTime && <div className='time-divider-ball'></div>}
                                         {tasksAtTime.map((task) => (
-                                            <CardTask tarefa={task} key={task.id} text={task.task} color={cardColor} />
+                                            <CardTask flag={flag} tarefa={task} key={task.id} text={task.task} color={cardColor} />
                                         ))}
                                     </div>
                                 )

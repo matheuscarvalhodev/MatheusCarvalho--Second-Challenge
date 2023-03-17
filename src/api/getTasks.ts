@@ -45,7 +45,6 @@ export const Tasks = async (dayOfWeek: string): Promise<Response> => {
         const result = mapper(response.data.events)
         return ({ 'status': response.status, 'data': result })
     } catch (error: any) {
-        console.log(error.response.data)
         return ({ 'status': error.response.status, 'data': error.response.data });
     }
 };
