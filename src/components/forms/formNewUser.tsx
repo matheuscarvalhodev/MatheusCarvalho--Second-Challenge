@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { errorMessages, SignupFormData } from '../../util/utils';
+import { useState } from 'react';
+import { SignupFormData } from '../../util/interfaces';
 import { containsNumbers, emailValidation, isStrongPassword, isTextOnly, isValidDate } from '../../util/inputValidator';
 import '../styles/forms/formNewUser.css';
-import Modal, { ModalContainer, ModalBox, ModalContent } from '../modals/modal';
+import Modal from '../modals/modal';
 import { Link, useNavigate } from 'react-router-dom';
-import { createUser } from '../../api/postAddUser';
-import { AnimatePresence } from 'framer-motion';
+import { createUser } from '../../api/post/postAddUser';
 import ModalLoading from '../modals/modalLoading';
+import { errorMessages } from '../../util/util';
 
 
 const SignupForm = (): JSX.Element => {
@@ -75,7 +75,11 @@ const SignupForm = (): JSX.Element => {
         setTimeout(() => {
           navigate('/login');
         }, 5000);
-      } else {
+      } else if (newUser.status === 500){
+        setMensagem(["Server error"]);
+        setShowModal(true);
+      }
+      else {
         setMensagem([`${newUser.data}`]);
         setShowModal(true);
       }

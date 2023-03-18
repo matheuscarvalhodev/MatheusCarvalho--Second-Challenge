@@ -1,0 +1,45 @@
+.erro404 {
+    margin: 0;
+    padding: 0;
+    background: rgb(51, 56, 61);
+    background: linear-gradient(263deg, rgba(51, 56, 61, 1) 0%, rgba(28, 29, 32, 1) 35%);
+    min-width: 100%;
+    min-height: 100vh;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 500px;
+}
+
+.erro404-logo {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.erro404-logo img {
+    width: 400px;
+}
+
+.erro404-text {
+    margin-left: 100px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    place-self: center;
+    text-align: center;
+    gap: 50px;
+}
+
+.erro404-button {
+    background: rgb(255, 45, 4);
+    background: linear-gradient(3deg, rgba(255, 45, 4, 1) 0%, rgba(193, 50, 22, 1) 35%);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    height: 60px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 250px;
+    margin-top: 50px
+}

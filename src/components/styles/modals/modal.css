@@ -18,7 +18,55 @@
     border: 3px #E9B425 solid;
 
 }
-
 .modal-content p{
   font-size: 14px;
+}
+.confirm_yes{
+  background: #00BA88;
+  border: 3px solid #00BA88;
+}
+.confirm_yes:hover {
+  color: #00BA88;
+}
+.confirm_no{
+  background: #FF3D1F;
+  border: 3px solid #FF3D1F;
+}
+.confirm_no:hover {
+  color: #FF3D1F;
+}
+.button {
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  cursor: pointer;
+}
+.button::after {
+  content: "";
+  background: #26292C;
+  position: absolute;
+  z-index: -1;
+  padding: 0.85em 0.75em;
+  display: block;
+}
+
+button[class^="confirm"]::after {
+  transition: all 0.3s ease;
+}
+button[class^="confirm"]:hover::after {
+  transition: all 0.3s ease-out;
+}
+.button::after {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0);
+}
+.button:hover::after {
+  transform: scale(1, 1);
 }

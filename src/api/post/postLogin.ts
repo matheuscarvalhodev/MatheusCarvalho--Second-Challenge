@@ -1,17 +1,15 @@
-import axios from 'axios';
+import { Response } from '../../util/interfaces';
+import { instance } from '../baseUrl';
 
 
-export const loginUser = async (user: string, password: string): Promise<any> => {
-    const baseUrlKey = process.env.REACT_APP_BASE_API;
-    const url = `${baseUrlKey}/users/sign-in`;
-
+export const loginUser = async (user: string, password: string): Promise<Response> => {
     const userData = {
         email: user,
         password: password
     };
 
     try {
-        const response = await axios.post(url, userData);
+        const response = await instance.post('/users/sign-in', userData);
         return({'status': response.status, 'data':response.data})
       } catch (error: any) {
         return({'status': error.response.status, 'data':error.response.data});
