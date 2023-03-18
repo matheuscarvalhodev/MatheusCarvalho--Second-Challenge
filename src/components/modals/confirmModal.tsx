@@ -1,8 +1,7 @@
 import React from "react";
 import { AnimatePresence } from "framer-motion";
-import styled from "styled-components";
-import { motion } from "framer-motion";
 import "../styles/modals/modal.css";
+import { ModalBox, ModalContainer, ModalContent } from "./styledModal";
 
 interface ModalProps {
     onConfirm: (flag:boolean) => void;
@@ -10,37 +9,10 @@ interface ModalProps {
     message: string;
 }
 
-export const ModalBoxConfirm = styled(motion.div)`
-  position: relative;
-  z-index: 2;
-  width: 400px;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const ModalContainerConfirm = styled.div`
-  position: fixed;
-  top: 90px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-`;
-
-export const ModalContentConfirm = styled(motion.div)`
-  padding: 5px;
-  color: black;
-`;
-
 const ModalConfirm: React.FC<ModalProps> = ({ showConfirm, message, onConfirm }) => {
 
     const modalContent = (
-        <ModalBoxConfirm
+        <ModalBox
             initial={{
                 opacity: 0,
                 y: 60,
@@ -61,7 +33,7 @@ const ModalConfirm: React.FC<ModalProps> = ({ showConfirm, message, onConfirm })
                 transition: { duration: 0.6 },
             }}
         >
-            <ModalContentConfirm
+            <ModalContent
                 initial={{ y: -30, opacity: 0 }}
                 animate={{
                     y: 0,
@@ -76,13 +48,13 @@ const ModalConfirm: React.FC<ModalProps> = ({ showConfirm, message, onConfirm })
                         <button type="button" style={{width:'70px'}} className="confirm_no button" onClick={() => onConfirm(false)}>No</button>
                     </div>
                 </div>
-            </ModalContentConfirm>
-        </ModalBoxConfirm>
+            </ModalContent>
+        </ModalBox>
     );
 
     return (
         <AnimatePresence>
-            {showConfirm && <ModalContainerConfirm>{modalContent}</ModalContainerConfirm>}
+            {showConfirm && <ModalContainer>{modalContent}</ModalContainer>}
         </AnimatePresence>
     );
 };

@@ -20,8 +20,7 @@ export function Form({ aoAtualizar, selectedDay,taskList,token }: FormProps) {
   const [task, setTask] = useState('');
   const [dayOfWeek, setDayOfWeek] = useState('Monday');
   const [time, setTime] = useState('');
-  const [taskEmpty, setTaskEmpty] = useState(false);
-  const [timeEmpty, setTimeEmpty] = useState(false);
+  const [emptyField, setEmptyField] = useState(false);
   const [modalMessage, setModalMessage] = useState<string[]>([]);
   const [message, setMessage] = useState('')
   const [showLoadingModal, setShowLoadingModal] = useState(false);
@@ -81,8 +80,7 @@ export function Form({ aoAtualizar, selectedDay,taskList,token }: FormProps) {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!task || !time) {
-      setTaskEmpty(!task);
-      setTimeEmpty(!time);
+      setEmptyField(!task);
       return;
     }
 
@@ -111,12 +109,12 @@ export function Form({ aoAtualizar, selectedDay,taskList,token }: FormProps) {
 
   return (
     <div className='container-form'>
-      <ModalConfirm showConfirm={confirm} message={'Delete all tasks?'} onConfirm={confirmDelete} />
+      <ModalConfirm showConfirm={confirm} message={'You want to delete all tasks?'} onConfirm={confirmDelete} />
       <Modal showModal={showModal} message={modalMessage} />
       <form className='container-form-addCard' onSubmit={handleSubmit}>
         <div className='input-form'>
           <label >
-            <input className={`task-or-inssue ${taskEmpty ? 'error' : ''}`} placeholder='Task or inssue' type="text" value={task} onChange={(event) => { setTask(event.target.value); setTaskEmpty(false); }} />
+            <input className={`task-or-inssue ${emptyField ? 'error' : ''}`} placeholder='Task or inssue' type="text" value={task} onChange={(event) => { setTask(event.target.value); setEmptyField(false); }} />
           </label>
           <label>
             <select className='select-day' value={dayOfWeek} onChange={(event) => setDayOfWeek(event.target.value)}>
@@ -128,7 +126,7 @@ export function Form({ aoAtualizar, selectedDay,taskList,token }: FormProps) {
             </select>
           </label>
           <label>
-            <input className={`time-input ${timeEmpty ? 'error' : ''}`} type="time" value={time} onChange={(event) => { setTime(event.target.value); setTimeEmpty(false); }} />
+            <input className={`time-input ${emptyField ? 'error' : ''}`} type="time" value={time} onChange={(event) => { setTime(event.target.value); setEmptyField(false); }} />
           </label>
           {
           showLoadingModal ? (

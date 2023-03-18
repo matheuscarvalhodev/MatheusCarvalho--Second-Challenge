@@ -12,46 +12,50 @@ const Login: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState<string[]>([]);
   const [showLoadingModal, setShowLoadingModal] = useState(false);
+  const [emptyField, setEmptyField] = useState(false);
 
   document.body.addEventListener("click", () => {
     if (showModal) {
       setShowModal(false);
     }
   });
-  const handleUsernameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setUsername(event.target.value);
-  };
-
-  const handlePasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setPassword(event.target.value);
-  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setShowLoadingModal(true);
-    try {
-      const login = await loginUser(username, password);
-      if (login.status === 200) {
-        navigate('/dashboard');
-        localStorage.setItem('user',JSON.stringify(login.data));
-      }else if(login.status === 403){
-        setModalMessage(['Invalid username or password']);
+    if (!username || !password) {
+      setEmptyField(!username);
+    } else {
+      setShowLoadingModal(true);
+      try {
+        const login = await loginUser(username, password);
+        console.log(login.data)
+        if (login.status === 200) {
+          navigate('/dashboard');
+          localStorage.setItem('user', JSON.stringify(login.data));
+        } else if (login.status === 403) {
+          setModalMessage(['Invalid username or password']);
+          setShowModal(true);
+        }
+        else if (login.status === 400) {
+          setModalMessage(['Incorrect Values']);
+          setShowModal(true);
+        }
+        else if (login.status === 500) {
+          setModalMessage(['Server error']);
+          setShowModal(true);
+        }
+        else {
+          setModalMessage([`${login.data}`]);
+          setShowModal(true);
+        }
+      } catch (error: any) {
+        setModalMessage([`${error.message}`]);
         setShowModal(true);
+      } finally {
+        setShowLoadingModal(false);
       }
-      else {
-        setModalMessage([`${login.data}`]);
-        setShowModal(true);
-      }
-    } catch (error:any) {
-      setModalMessage([`${error.message}`]);
-      setShowModal(true);
-    } finally {
-      setShowLoadingModal(false);
     }
+
   };
   return (
     <div className="container-formLogin">
@@ -63,8 +67,8 @@ const Login: React.FC = () => {
             id="username"
             placeholder="user name"
             value={username}
-            onChange={handleUsernameChange}
-            className="form-input"
+            onChange={(event) =>{setUsername(event.target.value); setEmptyField(false);}}
+            className={`form-input ${emptyField ? 'error' : ''}`}
           />
           <span className="input-icon">
             <img src="../images/user.png" alt="" />
@@ -76,8 +80,8 @@ const Login: React.FC = () => {
             id="password"
             placeholder="password"
             value={password}
-            onChange={handlePasswordChange}
-            className="form-input"
+            onChange={(event) => {setPassword(event.target.value); setEmptyField(false);}}
+            className={`form-input ${emptyField ? 'error' : ''}`}
           />
           <span className="input-icon">
             <img src="../images/password.png" alt="" />
@@ -86,16 +90,16 @@ const Login: React.FC = () => {
         <button type="submit" className="formLogin-button">
           Log in
         </button>
-        <Link style={{alignSelf:'start'}} to="/" className="link">
+        <Link style={{ alignSelf: 'start' }} to="/" className="link">
           No registration? Sign up
         </Link>
       </form>
       <Modal
-          showModal={showModal}
-          message={modalMessage}
-        />
-        {showLoadingModal && (
-        <ModalLoading/>
+        showModal={showModal}
+        message={modalMessage}
+      />
+      {showLoadingModal && (
+        <ModalLoading />
       )}
     </div>
   );

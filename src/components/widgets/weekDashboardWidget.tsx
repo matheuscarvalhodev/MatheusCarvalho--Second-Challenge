@@ -107,7 +107,7 @@ export const WeekDashboard: React.FC<dashboardProps> = ({ token }) => {
 
     return (
         <div className='container'>
-            <ModalConfirm showConfirm={confirm} message={'Delete this task?'} onConfirm={confirmDelete} />
+            <ModalConfirm showConfirm={confirm} message={'Do you want to delete this task?'} onConfirm={confirmDelete} />
             <Form aoAtualizar={aoAtualizar} selectedDay={selectedDay} taskList={sortedTasksByTime} token={token}/>
             <div className='container-tabs'>
                 <div className="container-dash">
