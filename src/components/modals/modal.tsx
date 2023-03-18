@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import styled from "styled-components";
-import { motion } from "framer-motion";
 import "../styles/modals/modal.css";
 import { ModalBox, ModalContainer, ModalContent } from "./styledModal";
-
-interface ModalProps {
-  showModal: boolean;
-  message: string[];
-}
+import { ModalProps } from "../../util/interfaces";
 
 const Modal: React.FC<ModalProps> = ({ showModal, message }) => {
 

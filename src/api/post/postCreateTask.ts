@@ -1,14 +1,9 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { Task } from '../util/utils';
-import { instance } from './baseUrl';
+import { AxiosRequestConfig } from 'axios';
+import { PostTask, Response } from '../../util/interfaces';
+import { instance } from '../baseUrl';
 
-interface postTask{
-    description: string;
-    dayOfWeek: string;
-}
-
-export const createTask = async (task:string, dayOfWeek:string,time:string,token:string): Promise<any> => {
-    const sendTask:postTask = {description: `${time} - ${task}`, dayOfWeek:dayOfWeek} 
+export const createTask = async (task:string, dayOfWeek:string,time:string,token:string): Promise<Response> => {
+    const sendTask:PostTask = {description: `${time} - ${task}`, dayOfWeek:dayOfWeek} 
     const config: AxiosRequestConfig = {
         headers: {
           Authorization: `Bearer ${token}`,

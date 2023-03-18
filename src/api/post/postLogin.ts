@@ -1,8 +1,8 @@
-import axios from 'axios';
-import { instance } from './baseUrl';
+import { Response } from '../../util/interfaces';
+import { instance } from '../baseUrl';
 
 
-export const loginUser = async (user: string, password: string): Promise<any> => {
+export const loginUser = async (user: string, password: string): Promise<Response> => {
     const userData = {
         email: user,
         password: password

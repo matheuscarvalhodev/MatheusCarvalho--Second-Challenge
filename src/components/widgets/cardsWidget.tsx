@@ -1,16 +1,7 @@
-import React, { useState } from 'react';
-import { DeleteTask } from '../../api/deleteTask';
-import { Task } from '../../util/utils';
-import ModalConfirm from '../modals/confirmModal';
-import Modal from '../modals/modal';
+import React from 'react';
+import { CardProps } from '../../util/interfaces';
 import "../styles/widgets/cardWidget.css"
 
-interface CardProps {
-  flag: (id:string) => void;
-  tarefa: Task;
-  color: string;
-  text: string;
-}
 
 const CardTask: React.FC<CardProps> = ({ tarefa, color, text,flag }) => {
     

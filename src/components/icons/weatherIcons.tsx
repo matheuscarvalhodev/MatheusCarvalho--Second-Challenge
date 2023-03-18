@@ -1,9 +1,6 @@
 import { WiCloud, WiDayCloudy, WiDayFog, WiDayRainMix, WiDaySunny, WiRain, WiSnow, WiThunderstorm } from 'react-icons/wi';
+import { WeatherIconProps } from '../../util/interfaces';
 
-interface WeatherIconProps {
-  weatherName: string;
-  size:number;
-}
 
 const WeatherIcon = ({ weatherName, size }: WeatherIconProps): JSX.Element => {
   switch (weatherName) {

@@ -1,32 +1,12 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { instance } from './baseUrl';
-
-interface TaskApi {
-    _id: string
-    description: string
-    dayOfWeek: string
-    userId: string
-    createdAt: string
-    updatedAt: string
-}
-
-interface TaskDto {
-    id:string
-    task:string,
-    dayOfWeek:string,
-    time:string,
-  }
-
-interface Response{
-    status:number;
-    data:TaskDto[] | any;
-}
+import { AxiosRequestConfig } from 'axios';
+import { Response, TaskApi, Task } from '../../util/interfaces';
+import { instance } from '../baseUrl';
 
 
-const mapper = (tasks:TaskApi[]): TaskDto[] => { 
+const mapper = (tasks:TaskApi[]): Task[] => { 
     return tasks.map(task => {
         const [time,tarefa] = task.description.split('-')
-        let result:TaskDto = {id:task._id, task:tarefa, dayOfWeek:`${task.dayOfWeek.slice(0, 1).toUpperCase()}${task.dayOfWeek.slice(1).toLowerCase()}`, time:time}
+        let result:Task = {id:task._id, task:tarefa, dayOfWeek:`${task.dayOfWeek.slice(0, 1).toUpperCase()}${task.dayOfWeek.slice(1).toLowerCase()}`, time:time}
         return result
     })
 }

@@ -1,10 +1,6 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { instance } from './baseUrl';
-
-interface Response{
-    status:number;
-    data: any;
-}
+import { AxiosRequestConfig } from 'axios';
+import { Response } from '../../util/interfaces';
+import { instance } from '../baseUrl';
 
 export const DeleteTask = async (id: string, token:string): Promise<Response> => {
     const config: AxiosRequestConfig = {

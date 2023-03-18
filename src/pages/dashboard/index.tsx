@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import Header from "../../components/widgets/headerDashboardWidget";
 import { WeekDashboard } from "../../components/widgets/weekDashboardWidget";
 import Erro404 from "../erro";

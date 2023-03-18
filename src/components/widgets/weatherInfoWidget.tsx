@@ -2,46 +2,22 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import WeatherIcon from '../icons/weatherIcons';
 import "../styles/widgets/weatherInfoWidget.css"
+import { WeatherFullData, WeatherProps } from '../../util/interfaces';
 
-interface weatherProps {
-  city: string;
-  country:string
-}
 
-interface WeatherFullData {
-  name: string;
-  main: {
-    temp: number;
-  };
-  weather: {
-    main: string;
-    description: string;
-  }[];
-  sys: {
-    country: string;
-    name: string;
-  };
-}
-
-const WeatherDisplay: React.FC<weatherProps> = ({ city,country }) => {
+const WeatherDisplay: React.FC<WeatherProps> = ({ city,country }) => {
   const [weatherData, setWeatherData] = useState<WeatherFullData | null>(null);
-  const [statusUrl, setStatusUrl] = useState(false);
-  const [showLoadingModal, setShowLoadingModal] = useState(false);
 
   useEffect(() => {
     const getWeatherData = async () => {
-      setShowLoadingModal(true)
       try {
         const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=metric&appid=${apiKey}`;
         const response = await axios.get<WeatherFullData>(url);
-        if (response.status != 200){setStatusUrl(true)}
         setWeatherData(response.data);
       } catch (error) {
         console.error(error);
-      } finally {
-        setShowLoadingModal(false)
-      }
+      } 
     };
 
     getWeatherData();

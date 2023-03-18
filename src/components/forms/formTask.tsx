@@ -1,20 +1,11 @@
 import { useState } from 'react';
-import { v4 as uuid } from 'uuid';
-import { DeleteAllTasks } from '../../api/deleteAllTasks';
-import { createTask } from '../../api/postCreateTask';
-import { Task } from '../../util/utils';
+import { DeleteAllTasks } from '../../api/delete/deleteAllTasks';
+import { createTask } from '../../api/post/postCreateTask';
+import { FormProps } from '../../util/interfaces';
+import { daysOfWeekList } from '../../util/util';
 import ModalConfirm from '../modals/confirmModal';
 import Modal from '../modals/modal';
 import "../styles/forms/taskForms.css"
-
-interface FormProps {
-  aoAtualizar: () => void;
-  selectedDay: string;
-  taskList: [string, Task[]][]
-  token:string;
-}
-
-const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 export function Form({ aoAtualizar, selectedDay,taskList,token }: FormProps) {
   const [task, setTask] = useState('');
@@ -118,7 +109,7 @@ export function Form({ aoAtualizar, selectedDay,taskList,token }: FormProps) {
           </label>
           <label>
             <select className='select-day' value={dayOfWeek} onChange={(event) => setDayOfWeek(event.target.value)}>
-              {daysOfWeek.map((day) => (
+              {daysOfWeekList.map((day) => (
                 <option key={day} value={day}>
                   {day}
                 </option>

@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { errorMessages, SignupFormData } from '../../util/utils';
+import { useState } from 'react';
+import { SignupFormData } from '../../util/interfaces';
 import { containsNumbers, emailValidation, isStrongPassword, isTextOnly, isValidDate } from '../../util/inputValidator';
 import '../styles/forms/formNewUser.css';
 import Modal from '../modals/modal';
 import { Link, useNavigate } from 'react-router-dom';
-import { createUser } from '../../api/postAddUser';
-import { AnimatePresence } from 'framer-motion';
+import { createUser } from '../../api/post/postAddUser';
 import ModalLoading from '../modals/modalLoading';
+import { errorMessages } from '../../util/util';
 
 
 const SignupForm = (): JSX.Element => {

@@ -2,14 +2,9 @@ import React from "react";
 import { AnimatePresence } from "framer-motion";
 import "../styles/modals/modal.css";
 import { ModalBox, ModalContainer, ModalContent } from "./styledModal";
+import { ConfirmModalProps } from "../../util/interfaces";
 
-interface ModalProps {
-    onConfirm: (flag:boolean) => void;
-    showConfirm: boolean;
-    message: string;
-}
-
-const ModalConfirm: React.FC<ModalProps> = ({ showConfirm, message, onConfirm }) => {
+const ModalConfirm: React.FC<ConfirmModalProps> = ({ showConfirm, message, onConfirm }) => {
 
     const modalContent = (
         <ModalBox

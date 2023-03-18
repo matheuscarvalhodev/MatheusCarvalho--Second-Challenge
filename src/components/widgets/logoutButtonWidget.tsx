@@ -26,14 +26,12 @@ const LogoutButton: React.FC = () => {
         navigation('/login')
     }
 
-
     return (
         <div className='container-logout'>
             <ModalConfirm showConfirm={confirm} message={'Are you sure?'} onConfirm={confirmDelete} />
             <a target={'_blank'} href={process.env.REACT_APP_H_REF}>
                 <img className="logo-logout" src="../images/logo-completo-preto.png" alt="logo-compasso" />
             </a>
-
             <div className='logout-icone'>
                 <button className='logout' id='logout' onClick={flag}>
                     <img className="seta-logout" src="../images/seta-logout.png" alt="seta-compasso" />

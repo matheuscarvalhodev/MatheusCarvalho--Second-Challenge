@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../../api/postLogin";
+import { loginUser } from "../../api/post/postLogin";
 import Modal from "../modals/modal";
 import ModalLoading from "../modals/modalLoading";
 import "../styles/forms/formLogin.css";

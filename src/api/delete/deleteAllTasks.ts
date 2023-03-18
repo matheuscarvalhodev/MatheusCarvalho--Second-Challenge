@@ -1,10 +1,7 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { instance } from './baseUrl';
+import { AxiosRequestConfig } from 'axios';
+import { Response } from '../../util/interfaces';
+import { instance } from '../baseUrl';
 
-interface Response{
-    status:number;
-    data: any;
-}
 
 export const DeleteAllTasks = async (dayOfWeek: string,token:string): Promise<Response> => {
 

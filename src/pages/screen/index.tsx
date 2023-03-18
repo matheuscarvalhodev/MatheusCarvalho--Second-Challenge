@@ -1,13 +1,6 @@
-import React, { useEffect } from "react";
-import Login from "../../components/forms/formLogin";
+import React from "react";
+import { ScreenProps } from "../../util/interfaces";
 import "./screen.css";
-
-interface ScreenProps {
-  title: string;
-  subtitle: string;
-  children: React.ReactNode;
-  typeScreen:string;
-}
 
 const Screen: React.FC<ScreenProps> = ({ title, subtitle, children, typeScreen }) => {
 

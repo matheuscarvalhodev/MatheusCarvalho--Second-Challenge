@@ -1,9 +1,8 @@
-import axios from 'axios';
-import { SignupFormData } from '../util/utils';
-import { instance } from './baseUrl';
+import { Response, SignupFormData } from '../../util/interfaces';
+import { instance } from '../baseUrl';
 
 
-export const createUser = async (userInput: SignupFormData): Promise<any> => {
+export const createUser = async (userInput: SignupFormData): Promise<Response> => {
     try {
       const response = await instance.post('/users/sign-up', userInput);
       return({'status': response.status, 'data':response.data})

@@ -1,13 +1,8 @@
 import { Link } from "react-router-dom";
+import { ErroPropos } from "../../util/interfaces";
 import "./erroPage.css"
 
 
-interface ErroPropos{
-    message:string;
-    rota:string;
-    button:string
-}
-// Você não está logado. Faça login para utilizar o planner
 const ErroPage: React.FC<ErroPropos> = ({message, rota, button}) => {
 
     return (

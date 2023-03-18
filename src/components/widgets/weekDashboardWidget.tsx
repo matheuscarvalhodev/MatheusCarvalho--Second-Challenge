@@ -1,21 +1,17 @@
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Form } from '../forms/formTask';
 import "../styles/widgets/weekDashboardWidget.css"
 import CardTask from './cardsWidget';
-import { Task } from '../../util/utils';
-import { Tasks } from '../../api/getTasks';
+import { DashboardProps, Task } from '../../util/interfaces';
+import { Tasks } from '../../api/get/getTasks';
 import Modal from '../modals/modal';
-import { DeleteTask } from '../../api/deleteTask';
+import { DeleteTask } from '../../api/delete/deleteTask';
 import ModalConfirm from '../modals/confirmModal';
+import { daysOfWeekObject } from '../../util/util';
 
 
-const daysOfWeek = [{ name: 'Monday', color: '#FF0024' }, { name: 'Tuesday', color: '#FF8000' }, { name: 'Wednesday', color: '#FFCE00' }, { name: 'Thursday', color: '#FF4D66' }, { name: 'Friday', color: '#FFA74D' }, { name: 'Saturday', color: '#FFDD4D' }, { name: 'Sunday', color: '#FF7F91' },];
 
-interface dashboardProps {
-    token: string;
-  }
-
-export const WeekDashboard: React.FC<dashboardProps> = ({ token }) => {
+export const WeekDashboard: React.FC<DashboardProps> = ({ token }) => {
     const [selectedDay, setSelectedDay] = useState('Monday');
     const [selectedDayColor, setSelectedDayColor] = useState('#FF0024');
     const [showLoadingModal, setShowLoadingModal] = useState(false);
@@ -112,7 +108,7 @@ export const WeekDashboard: React.FC<dashboardProps> = ({ token }) => {
             <div className='container-tabs'>
                 <div className="container-dash">
                     <div style={{ display: 'flex', justifyContent: 'space-around', borderBottom: '1px solid #ccc', gap: "3px", marginLeft: "110px", marginRight: "15px", minWidth: "1100px", width: "100%" }}>
-                        {daysOfWeek.map((day) => (
+                        {daysOfWeekObject.map((day) => (
                             <button
                                 key={day.color}
                                 onClick={() => { setSelectedDay(day.name); setSelectedDayColor(day.color); }}

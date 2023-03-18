@@ -1,7 +1,4 @@
 import { AnimatePresence } from "framer-motion";
-import styled from "styled-components";
-import { motion } from "framer-motion";
-import "../styles/modals/modal.css";
 import "../styles/modals/loading.css"
 import { ModalBox, ModalContainer, ModalContent } from "./styledModal";
 

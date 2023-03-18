@@ -3,13 +3,9 @@ import DateTimeDisplay from "./dateTimeWidget";
 import WeatherDisplay from "./weatherInfoWidget";
 import "../styles/widgets/headerDashboardWidget.css"
 import LogoutButton from "./logoutButtonWidget";
+import { WeatherProps } from "../../util/interfaces";
 
-interface HeaderProps{
-    city:string
-    country:string
-}
-
-const Header: React.FC<HeaderProps>= ({city, country}) => {
+const Header: React.FC<WeatherProps>= ({city, country}) => {
     return (
         <header className="header">
             <div className="header-title">
