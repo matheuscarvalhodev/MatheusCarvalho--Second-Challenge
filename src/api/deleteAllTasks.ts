@@ -1,28 +1,23 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { instance } from './baseUrl';
 
 interface Response{
     status:number;
     data: any;
 }
 
-export const DeleteAllTasks = async (dayOfWeek: string): Promise<Response> => {
-    console.log('aqqui')
+export const DeleteAllTasks = async (dayOfWeek: string,token:string): Promise<Response> => {
+
     dayOfWeek = `${dayOfWeek.slice(0, 1).toLowerCase()}${dayOfWeek.slice(1).toLowerCase()}`
-    console.log(dayOfWeek)
-    const baseUrlKey = process.env.REACT_APP_BASE_API;
-    const url = `${baseUrlKey}/events`;
-    const token = localStorage.getItem('token')
     const config: AxiosRequestConfig = {
         headers: { Authorization: `Bearer ${token}` },
         params: { dayOfWeek },
       };
     
     try {
-        const response = await axios.delete(url, config);
-        console.log("AAAQUI   ",response.data)
+        const response = await instance.delete('events', config);
         return ({ 'status': response.status, 'data': response.data })
     } catch (error: any) {
-        console.log(error.response.data)
         return ({ 'status': error.response.status, 'data': error.response.data });
     }
 };

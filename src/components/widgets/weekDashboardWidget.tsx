@@ -11,7 +11,11 @@ import ModalConfirm from '../modals/confirmModal';
 
 const daysOfWeek = [{ name: 'Monday', color: '#FF0024' }, { name: 'Tuesday', color: '#FF8000' }, { name: 'Wednesday', color: '#FFCE00' }, { name: 'Thursday', color: '#FF4D66' }, { name: 'Friday', color: '#FFA74D' }, { name: 'Saturday', color: '#FFDD4D' }, { name: 'Sunday', color: '#FF7F91' },];
 
-export function WeekDashboard() {
+interface dashboardProps {
+    token: string;
+  }
+
+export const WeekDashboard: React.FC<dashboardProps> = ({ token }) => {
     const [selectedDay, setSelectedDay] = useState('Monday');
     const [selectedDayColor, setSelectedDayColor] = useState('#FF0024');
     const [showLoadingModal, setShowLoadingModal] = useState(false);
@@ -32,12 +36,12 @@ export function WeekDashboard() {
     const aoAtualizar = () => {
         setAtualizar(true)
     }
-
     useEffect(() => {
         setShowLoadingModal(true);
         const api = async () => {
             try {
-                const result = await Tasks(selectedDay);
+                const result = await Tasks(selectedDay,token);
+                
                 if (result.status == 200) {
                     const filteredTasks = result.data.filter((task: Task) => task.dayOfWeek === selectedDay);
                     const tasksByTime = filteredTasks.reduce((acc: { [key: string]: Task[] }, task: Task) => {
@@ -81,7 +85,7 @@ export function WeekDashboard() {
     
       async function deleteTask(){
         try{
-          const deleteTask = await DeleteTask(idTask);
+          const deleteTask = await DeleteTask(idTask,token);
           if(deleteTask.status == 204){
             aoAtualizar();
           }else {
@@ -104,7 +108,7 @@ export function WeekDashboard() {
     return (
         <div className='container'>
             <ModalConfirm showConfirm={confirm} message={'Delete this task?'} onConfirm={confirmDelete} />
-            <Form aoAtualizar={aoAtualizar} selectedDay={selectedDay} taskList={sortedTasksByTime}/>
+            <Form aoAtualizar={aoAtualizar} selectedDay={selectedDay} taskList={sortedTasksByTime} token={token}/>
             <div className='container-tabs'>
                 <div className="container-dash">
                     <div style={{ display: 'flex', justifyContent: 'space-around', borderBottom: '1px solid #ccc', gap: "3px", marginLeft: "110px", marginRight: "15px", minWidth: "1100px", width: "100%" }}>

@@ -5,11 +5,11 @@ import "../styles/widgets/headerDashboardWidget.css"
 import LogoutButton from "./logoutButtonWidget";
 
 interface HeaderProps{
-    user:string
+    city:string
+    country:string
 }
 
-const Header: React.FC<HeaderProps>= ({user}) => {
-
+const Header: React.FC<HeaderProps>= ({city, country}) => {
     return (
         <header className="header">
             <div className="header-title">
@@ -17,8 +17,8 @@ const Header: React.FC<HeaderProps>= ({user}) => {
                 <p>Use this planner to organize your daily issues.</p>
             </div>
             <DateTimeDisplay/>
-            <WeatherDisplay user={user}/>
-            <LogoutButton user={user}/>
+            <WeatherDisplay city={city} country={country}/>
+            <LogoutButton/>
         </header>);
 };
 

@@ -1,18 +1,14 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { Task } from '../util/utils';
+import { instance } from './baseUrl';
 
 interface postTask{
     description: string;
     dayOfWeek: string;
 }
 
-export const createTask = async (task:string, dayOfWeek:string,time:string): Promise<any> => {
-
+export const createTask = async (task:string, dayOfWeek:string,time:string,token:string): Promise<any> => {
     const sendTask:postTask = {description: `${time} - ${task}`, dayOfWeek:dayOfWeek} 
-
-    const baseUrlKey = process.env.REACT_APP_BASE_API;
-    const url = `${baseUrlKey}/events`;
-    const token = localStorage.getItem('token')
     const config: AxiosRequestConfig = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -21,7 +17,7 @@ export const createTask = async (task:string, dayOfWeek:string,time:string): Pro
       };
 
     try {
-        const response = await axios.post(url, sendTask, config);
+        const response = await instance.post('/events', sendTask, config);
         return({'status': response.status, 'data':response.data})
       } catch (error: any) {
         return({'status': error.response.status, 'data':error.response.data});

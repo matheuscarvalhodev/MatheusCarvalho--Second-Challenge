@@ -1,13 +1,11 @@
 import axios from 'axios';
 import { SignupFormData } from '../util/utils';
+import { instance } from './baseUrl';
 
 
 export const createUser = async (userInput: SignupFormData): Promise<any> => {
-    const baseUrlKey = process.env.REACT_APP_BASE_API;
-    const url = `${baseUrlKey}/users/sign-up`;
-  
     try {
-      const response = await axios.post(url, userInput);
+      const response = await instance.post('/users/sign-up', userInput);
       return({'status': response.status, 'data':response.data})
     } catch (error: any) {
       return({'status': error.response.status, 'data':error.response.data});

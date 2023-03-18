@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { instance } from './baseUrl';
 
 interface TaskApi {
     _id: string
@@ -30,18 +31,14 @@ const mapper = (tasks:TaskApi[]): TaskDto[] => {
     })
 }
 
-export const Tasks = async (dayOfWeek: string): Promise<Response> => {
-
-    const baseUrlKey = process.env.REACT_APP_BASE_API;
-    const url = `${baseUrlKey}/events`;
-    const token = localStorage.getItem('token')
+export const Tasks = async (dayOfWeek: string, token:string|any): Promise<Response> => {
     const config: AxiosRequestConfig = {
         headers: { Authorization: `Bearer ${token}` },
         params: { dayOfWeek },
       };
 
     try {
-        const response = await axios.get(url, config);
+        const response = await instance.get("/events", config);
         const result = mapper(response.data.events)
         return ({ 'status': response.status, 'data': result })
     } catch (error: any) {

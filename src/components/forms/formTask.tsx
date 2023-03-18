@@ -7,15 +7,16 @@ import ModalConfirm from '../modals/confirmModal';
 import Modal from '../modals/modal';
 import "../styles/forms/taskForms.css"
 
-type FormProps = {
+interface FormProps {
   aoAtualizar: () => void;
   selectedDay: string;
   taskList: [string, Task[]][]
+  token:string;
 }
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-export function Form({ aoAtualizar, selectedDay }: FormProps) {
+export function Form({ aoAtualizar, selectedDay,taskList,token }: FormProps) {
   const [task, setTask] = useState('');
   const [dayOfWeek, setDayOfWeek] = useState('Monday');
   const [time, setTime] = useState('');
@@ -24,6 +25,7 @@ export function Form({ aoAtualizar, selectedDay }: FormProps) {
   const [modalMessage, setModalMessage] = useState<string[]>([]);
   const [message, setMessage] = useState('')
   const [showLoadingModal, setShowLoadingModal] = useState(false);
+  const [empty, setEmpty] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [confirm, setConfirm] = useState(false);
 
@@ -37,7 +39,7 @@ export function Form({ aoAtualizar, selectedDay }: FormProps) {
     setShowLoadingModal(true);
     setMessage('Deletando...')
     try {
-      const deleteTask = await DeleteAllTasks(selectedDay);
+      const deleteTask = await DeleteAllTasks(selectedDay,token);
       if (deleteTask.status == 200) {
         aoAtualizar();
         setShowLoadingModal(false);
@@ -54,7 +56,17 @@ export function Form({ aoAtualizar, selectedDay }: FormProps) {
   }
 
   const flag = () => {
-    setConfirm(true)
+    if(taskList.length === 0){
+      setEmpty(true);
+      setMessage('Empty Dashboard')
+      setShowLoadingModal(true)
+      setTimeout(() => {
+        setShowLoadingModal(false);
+        setEmpty(false);
+      }, 3000);
+    }else{
+      setConfirm(true)
+    }
   }
 
   const confirmDelete = (flag: boolean) => {
@@ -77,7 +89,7 @@ export function Form({ aoAtualizar, selectedDay }: FormProps) {
     setShowLoadingModal(true);
     setMessage('Enviando...')
     try {
-      const newUser = await createTask(task, dayOfWeek, time);
+      const newUser = await createTask(task, dayOfWeek, time,token);
       if (newUser.status === 201) {
         aoAtualizar();
         setShowLoadingModal(false);
@@ -118,18 +130,21 @@ export function Form({ aoAtualizar, selectedDay }: FormProps) {
           <label>
             <input className={`time-input ${timeEmpty ? 'error' : ''}`} type="time" value={time} onChange={(event) => { setTime(event.target.value); setTimeEmpty(false); }} />
           </label>
-          {showLoadingModal ? (
-            <div style={{ display: 'flex', gap: '5px', textAlign: 'center', alignItems: 'center', fontSize: '12px' }}>
+          {
+          showLoadingModal ? (
+            <div style={{ display: 'flex', gap: '5px', textAlign: 'center', alignItems: 'center', fontSize: '14px' }}>
               {message}
-              <svg className="circleSvg-weather" viewBox="0 0 50 50" style={{ width: '30px', height: '30px' }}>
+              {empty ? <></> : <svg className="circleSvg-weather" viewBox="0 0 50 50" style={{ width: '30px', height: '30px' }}>
                 <circle className="circle-weather"
                   cx="25"
                   cy="25"
                   r="20"
                 />
-              </svg>
+              </svg>}
+              
             </div>
-          ) : <></>}
+          ) : <></>
+          }
         </div>
         <div className='buttons-form'>
           <button className='add' type="submit">+ Add to calendar</button>

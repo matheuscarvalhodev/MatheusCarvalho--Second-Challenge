@@ -1,11 +1,9 @@
-import { stringify } from "querystring";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/postLogin";
 import Modal from "../modals/modal";
 import ModalLoading from "../modals/modalLoading";
 import "../styles/forms/formLogin.css";
-
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -36,17 +34,16 @@ const Login: React.FC = () => {
     event.preventDefault();
     setShowLoadingModal(true);
     try {
-      const newUser = await loginUser(username, password);
-      if (newUser.status === 200) {
-        navigate('/dashboard', { state: { id: newUser.data.user.email } });
-        localStorage.setItem('token', newUser.data.token);
-        localStorage.setItem(`user ${newUser.data.user.email}`, JSON.stringify(newUser.data.user))
-      }else if(newUser.status === 403){
+      const login = await loginUser(username, password);
+      if (login.status === 200) {
+        navigate('/dashboard');
+        localStorage.setItem('user',JSON.stringify(login.data));
+      }else if(login.status === 403){
         setModalMessage(['Invalid username or password']);
         setShowModal(true);
       }
       else {
-        setModalMessage([`${newUser.data}`]);
+        setModalMessage([`${login.data}`]);
         setShowModal(true);
       }
     } catch (error:any) {

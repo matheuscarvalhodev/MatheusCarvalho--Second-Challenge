@@ -2,15 +2,11 @@ import React from 'react';
 import "../styles/widgets/logoutButtonWidget.css"
 import { useNavigate } from "react-router-dom";
 
-interface LogoutProps {
-    user: string
-}
 
-const LogoutButton: React.FC<LogoutProps> = ({ user }) => {
+const LogoutButton: React.FC = () => {
     const navigation = useNavigate();
     const logout = () => {
-        localStorage.removeItem(`user ${user}`)
-        localStorage.removeItem('token')
+        localStorage.removeItem('user')
         navigation('/login')
     }
 

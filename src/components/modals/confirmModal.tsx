@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -72,8 +72,8 @@ const ModalConfirm: React.FC<ModalProps> = ({ showConfirm, message, onConfirm })
                 <div className="modal-content" style={{width:'300px'}}>
                     <p style={{fontSize:"20px", marginBottom:'20px'}}>{`${message}`}</p>
                     <div style={{display:"flex",gap:"20px"}}>
-                        <button type="button" style={{width:'70px'}} className="add" onClick={() => onConfirm(true)}>Yes</button>
-                        <button type="button" style={{width:'70px'}} className="delete" onClick={() => onConfirm(false)}>No</button>
+                        <button type="button" style={{width:'70px'}} className="confirm_yes button" onClick={() => onConfirm(true)}>Yes</button>
+                        <button type="button" style={{width:'70px'}} className="confirm_no button" onClick={() => onConfirm(false)}>No</button>
                     </div>
                 </div>
             </ModalContentConfirm>
