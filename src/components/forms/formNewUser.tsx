@@ -67,29 +67,33 @@ const SignupForm = (): JSX.Element => {
       setMensagem(errorFields.map((field) => errorMessages[field]))
     } else {
       setShowLoadingModal(true);
-    try {
-      const newUser = await createUser(formData);
-      if (newUser.status === 201) {
-        setMensagem(['Registration successful']);
+      try {
+        const newUser = await createUser(formData);
+        if (newUser.status === 201) {
+          setMensagem(['Registration successful']); 
+          setShowModal(true);
+          setTimeout(() => {
+            navigate('/login');
+          }, 5000);
+        } else if (newUser.status === 500) {
+          setMensagem(["Server error"]);
+          setShowModal(true);
+        }
+        else if (newUser.status === 400) {
+          setMensagem([`${newUser.data}`]);
+          setShowModal(true);
+        }
+        else {
+          setMensagem([`${newUser.data.message}`]);
+          setShowModal(true);
+        }
+      } catch (error: any) {
+        setMensagem([`${error.message}`]);
         setShowModal(true);
-        setTimeout(() => {
-          navigate('/login');
-        }, 5000);
-      } else if (newUser.status === 500){
-        setMensagem(["Server error"]);
-        setShowModal(true);
+      } finally {
+        setShowLoadingModal(false);
       }
-      else {
-        setMensagem([`${newUser.data}`]);
-        setShowModal(true);
-      }
-    } catch (error:any) {
-      setMensagem([`${error.message}`]);
-      setShowModal(true);
-    } finally {
-      setShowLoadingModal(false);
-    }
-      
+
     }
   };
 
@@ -187,9 +191,9 @@ const SignupForm = (): JSX.Element => {
         <br />
         <button type="submit" className='formNewUser-button'>Register Now</button>
       </form>
-      <Modal showModal={showModal} message={menssagem}/>
+      <Modal showModal={showModal} message={menssagem} />
       {showLoadingModal && (
-        <ModalLoading/>
+        <ModalLoading />
       )}
       <Link to="/login" className='link'>Already have a registration? Sign in</Link>
     </div>

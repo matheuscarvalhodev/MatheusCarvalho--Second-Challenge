@@ -5,7 +5,7 @@ export const errorMessages: { [key: string]: string } = {
     'country': 'Invalid country, try using only letters and spaces',
     'city': 'Invalid city, try using only letters and spaces',
     'email': 'Invalid email or already in use',
-    'password': 'Invalid password. Your password must contain at least one number, one lower case letter, one upper case letter, one special character and be at least 4 characters long',
+    'password': 'Invalid password. Your password must contain at least one number, one lower case letter and be at least 6 characters long',
     'confirmPassword': 'Passwords do not match',
   };
 

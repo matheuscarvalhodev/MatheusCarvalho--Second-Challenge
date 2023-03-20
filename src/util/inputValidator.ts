@@ -7,7 +7,7 @@ export function isTextOnly(value: string): boolean {
 }
 
 export function isStrongPassword(value: string): boolean {
-  const passwordRegex = /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z\d]{4,}$/;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z\d]{6,}$/;
   return passwordRegex.test(value);
 }
 
