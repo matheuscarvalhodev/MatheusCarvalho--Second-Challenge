@@ -1,4 +1,4 @@
-#<h1 align="center"> Terceiro Desafio: Projeto de Site de Tarefas com Login e Dashboard </h1>
+<h1 align="center"> Terceiro Desafio: Projeto de Site de Tarefas com Login e Dashboard </h1>
 
 <h4 align="center"> 
     :tada:  Projeto finalizado  :tada:
