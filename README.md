@@ -86,7 +86,8 @@ O site possui modais para trazer uma melhor visualização das mensagens de erro
 Este projeto foi criado como parte do terceiro desafio do estágio na empresa Compass UOL. Se você tiver alguma sugestão de melhoria ou quiser contribuir com código, mande-me mensagem no Linkedin: [Matheus Carvalho](https://www.linkedin.com/in/matheus-carvalho-dev/)
 
 # Autor
-<div align="center">
-<img src="https://github.com/matheuscarvalhodev.png" width=115>
-[Matheus Carvalho](https://www.linkedin.com/in/matheus-carvalho-dev/)
-</div>
+
+| [<img src="https://github.com/matheuscarvalhodev.png" width=115><br><sub>Matheus Carvalho</sub>](https://www.linkedin.com/in/matheus-carvalho-dev/) | 
+| :---: |
+
+
