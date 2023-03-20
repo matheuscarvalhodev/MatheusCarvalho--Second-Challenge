@@ -10,13 +10,19 @@ Este é um projeto desenvolvido em React/Typescript, que consiste em um site de 
 Para instalar o projeto, siga os seguintes passos:
 
 Clone o repositório usando o comando git clone `https://github.com/matheuscarvalhodev/MatheusCarvalho--Second-Challenge.git`
+
 Navegue até a pasta do projeto usando o comando cd nome-do-repositorio
+
 Instale as dependências do projeto usando o comando `npm install`
+
 No arquivo .env na raiz do projeto, adicione as chaves criadas na sua conta no OpenWeatherMap.
+
 ```
 REACT_APP_OPEN_WEATHER_API_KEY=SUA_API_KEY
 ```
-Execute o comando npm start para iniciar a aplicação.
+
+Execute o comando `npm start` para iniciar a aplicação.
+
 Abra [http://localhost:3000](http://localhost:3000) para ver o projeto no seu browser.
 
 ## :pushpin: Funcionalidades
