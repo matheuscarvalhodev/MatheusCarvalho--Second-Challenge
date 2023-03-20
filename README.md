@@ -87,7 +87,6 @@ Este projeto foi criado como parte do terceiro desafio do estágio na empresa Co
 
 # Autor
 <div align="center">
-| [<img src="https://github.com/matheuscarvalhodev.png" width=115><br><sub>Matheus Carvalho</sub>](https://www.linkedin.com/in/matheus-carvalho-dev/) |
-| --- |
-
+<img src="https://github.com/matheuscarvalhodev.png" width=115>
+[<h2>Matheus Carvalho</h2>](https://www.linkedin.com/in/matheus-carvalho-dev/)
 </div>
