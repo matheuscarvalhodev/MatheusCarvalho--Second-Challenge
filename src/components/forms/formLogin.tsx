@@ -68,7 +68,7 @@ const Login: React.FC = () => {
             placeholder="user name"
             value={username}
             onChange={(event) =>{setUsername(event.target.value); setEmptyField(false);}}
-            className={`form-input ${emptyField ? 'error' : ''}`}
+            className={`form-input ${emptyField ? 'error-login' : ''}`}
           />
           <span className="input-icon">
             <img src="../images/user.png" alt="" />
@@ -81,7 +81,7 @@ const Login: React.FC = () => {
             placeholder="password"
             value={password}
             onChange={(event) => {setPassword(event.target.value); setEmptyField(false);}}
-            className={`form-input ${emptyField ? 'error' : ''}`}
+            className={`form-input ${emptyField ? 'error-login' : ''}`}
           />
           <span className="input-icon">
             <img src="../images/password.png" alt="" />
